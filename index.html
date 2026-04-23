@@ -223,7 +223,26 @@
          Shown at 1/3 width (half each in stacked column), square aspect ratio.
     */
     .handloom-photos{display:grid;grid-template-columns:2fr 1fr;gap:2px;}
-    .img-handloom-main{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;display:block;background:var(--bg);}
+    .img-handloom-main {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 18px;
+}
+    .handloom-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .handloom-gallery {
+    grid-template-columns: 1fr;
+  }
+}
     .handloom-col{display:grid;grid-template-rows:1fr 1fr;gap:2px;}
     .img-weaver{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center;display:block;background:var(--bg);}
 
@@ -477,8 +496,12 @@
       Until added, placeholder is shown.
     -->
     <div class="proj-card fade">
-      <img src="User Interface Design Project.png" alt="User interface design project preview" class="img-handloom-main"> class="img-handloom-main">
-      <div class="proj-body">
+      <img
+  src="User Interface Design Project.png"
+  alt="User interface design project preview"
+  class="img-handloom-main"
+>
+class="img-handloom-main">
         <div class="proj-top">
           <span class="proj-tag">UI Interface Design</span>
         </div>
@@ -589,12 +612,11 @@
          → Right column bottom half, square 1:1. No resize needed.
     -->
     <a class="outcome-link fade" href="https://drive.google.com/file/d/1umcaHk6xbKIc0c4n1tVZ1GnPjhGcrjM-/view?usp=sharing" target="_blank">
-      <div class="handloom-photos">
-        <img src="Handloom Wiever Ergonomic Study.png" alt="Students with handloom weavers in Solapur" class="img-handloom-main">
-        <div class="handloom-col">
-          <img src="Weaver wevieing.png" alt="Weaver at work — posture study" class="img-weaver">
-          <img src="weaver sitting bad posture.png" alt="Weaving process documentation" class="img-weaver">
-        </div>
+    <div class="handloom-gallery">
+  <img src="Handloom 1.png" alt="Students engaging with handloom weaving context in Solapur" class="img-handloom-main">
+  <img src="Handloom Wiever Ergonomic Study.png" alt="Handloom weaver ergonomic study documentation" class="img-handloom-main">
+  <img src="Local Grocery Shopkeeper Study.png" alt="Field study and systems observation documentation" class="img-handloom-main">
+</div>
       </div>
       <div class="outcome-body">
         <div class="oc-domain">Field Research · Ergonomics · HCD</div>
