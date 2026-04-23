@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aniket Supe — Design Educator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0C0C0A; --surface:#141412; --card:#1C1C19; --card-hover:#242420;
+      --accent:#C4975A; --accent-dim:rgba(196,151,90,0.10); --accent-light:#E8C48A;
+      --text-primary:#F0EBE3; --text-secondary:#A49E93; --text-muted:#5E5A54;
+      --border:#252520; --border-light:#2E2E2A;
+      --font-display:'Cormorant Garamond',Georgia,serif;
+      --font-body:'Outfit',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);font-size:15px;line-height:1.7;overflow-x:hidden;}
+    ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border-light);}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:62px;background:rgba(12,12,10,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-display);font-size:19px;font-weight:500;color:var(--text-primary);text-decoration:none;letter-spacing:.01em;}
+    .nav-logo span{color:var(--accent);}
+    .nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+    .nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s;}
+    .nav-links a:hover{color:var(--accent);}
+    .nav-links .resume-link{color:var(--accent);border:1px solid rgba(196,151,90,.35);padding:6px 14px;border-radius:2px;transition:all .2s;}
+    .nav-links .resume-link:hover{background:var(--accent-dim);color:var(--accent-light);}
+
+    /* ── LAYOUT ── */
+    main{padding-top:62px;}
+    section{padding:88px 52px;max-width:1200px;margin:0 auto;}
+    .full-bleed{max-width:none!important;background:var(--surface);padding:0!important;}
+    .full-bleed .inner{max-width:1200px;margin:0 auto;padding:88px 52px;}
+    .divider{border:none;border-top:1px solid var(--border);}
+
+    /* ── EYEBROW ── */
+    .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+    .eyebrow span:first-child{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+    .eyebrow-line{width:32px;height:1px;background:var(--accent);opacity:.4;}
+    .eyebrow span:last-child{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
+
+    /* ── TYPE ── */
+    h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.15;}
+    .hero-title{font-size:clamp(46px,5.8vw,86px);font-weight:300;line-height:1.02;letter-spacing:-.02em;}
+    .hero-title em,.sec-title em{color:var(--accent-light);font-style:italic;}
+    .sec-title{font-size:clamp(28px,3.2vw,48px);font-weight:300;margin-bottom:12px;}
+    .sec-sub{font-size:14px;color:var(--text-secondary);max-width:580px;line-height:1.8;}
+
+    /* ── BTN ── */
+    .btn{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(196,151,90,.38);padding:9px 20px;border-radius:2px;text-decoration:none;display:inline-block;transition:all .2s;cursor:pointer;white-space:nowrap;}
+    .btn:hover{background:var(--accent-dim);border-color:var(--accent);}
+    .btn.filled{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;font-size:11px;padding:13px 36px;}
+    .btn.filled:hover{background:var(--accent-light);border-color:var(--accent-light);}
+
+    /* ── TAGS — all uniform, one style ── */
+    .tag{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-secondary);border:1px solid var(--border-light);padding:5px 12px;border-radius:2px;background:transparent;}
+    .pill{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:4px 10px;border-radius:2px;}
+    .row{display:flex;flex-wrap:wrap;gap:8px;}
+
+    /* ── HERO ── */
+    #hero{min-height:calc(100vh - 62px);display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;padding-top:68px;padding-bottom:68px;}
+    .hero-intro{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+    .hero-intro::before{content:'';width:26px;height:1px;background:var(--accent);}
+    .hero-sub{margin-top:18px;font-size:14px;color:var(--text-secondary);max-width:490px;line-height:1.85;}
+    .hero-stats{margin-top:26px;padding-top:24px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .stat-v{font-family:var(--font-display);font-size:26px;font-weight:300;color:var(--accent-light);line-height:1;margin-bottom:4px;}
+    .stat-l{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+    .hero-right{display:flex;flex-direction:column;gap:14px;}
+
+    /*
+      Profile — Aniket.png: 590×788 px
+      Displayed as 3:4 portrait. object-position center 10% keeps face in frame.
+    */
+    .profile-wrap{background:var(--card);border:1px solid var(--border-light);padding:8px;border-radius:4px;}
+    .profile-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 10%;display:block;border-radius:3px;}
+
+    .hero-quote{background:var(--card);border:1px solid var(--border-light);border-left:3px solid var(--accent);padding:18px 22px;}
+    .hero-quote p{font-family:var(--font-display);font-size:17px;font-weight:300;font-style:italic;line-height:1.55;color:var(--text-secondary);}
+
+    /* ── CREDENTIALS ── */
+    .creds-grid{display:grid;grid-template-columns:1fr 2fr;gap:56px;margin-top:40px;align-items:start;}
+    .tl-col-label{font-size:10px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:20px;}
+    .tl{list-style:none;position:relative;padding-left:16px;}
+    .tl::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--border-light);}
+    .tl li{position:relative;padding:0 0 20px 20px;}
+    .tl li::before{content:'';position:absolute;left:-3.5px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--bg);border:1.5px solid var(--accent);}
+    .tl-year{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+    .tl-title{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:2px;}
+    .tl-sub{font-size:12px;color:var(--text-secondary);}
+    .tl-badge{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(196,151,90,.2);padding:2px 8px;border-radius:1px;}
+
+    /* ── COMPETENCY — 3 cards, all same bg, hover changes shade ── */
+    .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:36px;}
+    .comp-cell{background:var(--card);padding:26px 24px;transition:background .25s;}
+    .comp-cell:hover{background:var(--card-hover);}
+    .comp-title{font-family:var(--font-display);font-size:20px;margin-bottom:10px;color:var(--text-primary);}
+    .comp-sub{font-size:12px;color:var(--text-secondary);line-height:1.72;}
+    .comp-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;}
+
+    /* ── CASE STUDY (Empathetic Platform) ── */
+    .case-hero{background:var(--card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;margin-top:36px;}
+    .case-header{padding:32px 36px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;}
+    .case-num{font-family:var(--font-display);font-size:60px;font-weight:300;color:var(--border-light);line-height:1;}
+    .case-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(196,151,90,.35);padding:4px 10px;margin-bottom:10px;}
+    .case-title{font-size:clamp(22px,2.6vw,34px);font-weight:300;margin-bottom:8px;}
+    .case-desc{font-size:13px;color:var(--text-secondary);max-width:480px;line-height:1.75;margin-bottom:14px;}
+    .case-body{padding:32px 36px;display:grid;grid-template-columns:repeat(3,1fr);}
+    .case-col{padding-right:20px;border-right:1px solid var(--border);}
+    .case-col:nth-child(2){padding:0 20px;}
+    .case-col:last-child{border-right:none;padding-left:20px;padding-right:0;}
+    .case-col-label{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+    .case-col ul{list-style:none;}
+    .case-col ul li{font-size:12px;color:var(--text-secondary);padding:3px 0;display:flex;gap:8px;align-items:flex-start;}
+    .case-col ul li::before{content:'→';color:var(--accent);opacity:.55;flex-shrink:0;font-size:11px;margin-top:1px;}
+
+    /*
+      Phone screens: 786×1704 px → aspect-ratio 786/1704 (~9:19.4)
+      Portrait phone mockup. No cropping needed.
+    */
+    .case-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 36px 32px;}
+    .phone-screen{width:100%;aspect-ratio:786/1704;object-fit:cover;object-position:top;border-radius:5px;border:1px solid var(--border-light);display:block;background:var(--bg);}
+
+    .proc-bar{display:flex;align-items:center;padding:16px 36px;border-top:1px solid var(--border);}
+    .proc-node{flex:1;text-align:center;}
+    .proc-n{font-family:var(--font-display);font-size:18px;font-weight:300;color:var(--accent);}
+    .proc-l{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-secondary);}
+    .proc-arr{font-size:11px;color:var(--text-muted);flex-shrink:0;}
+
+    /* ── PROJECT CARDS (Web) ── */
+    .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;}
+
+    /* All web project image containers: 16:9 landscape — consistent for all web/UI projects */
+    /*
+      Kirana image: Screenshot 2026-04-22 231347.png — 250×192 px (needs resize to at least 800×450)
+      Current will be displayed as 16:9 with object-fit cover — will stretch. See image notes.
+    */
+    .img-web-landscape{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+      background:var(--bg);
+    }
+    /*
+      Dashboard image: Productmanagement dashboard (1).png — 2880×2728 px (~1:1)
+      Displayed as 16:9 landscape with object-fit contain on dark bg.
+    */
+    .img-web-contain{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+      background:#0e0e0c;
+      padding:12px;
+    }
+    /* Placeholder for missing images */
+    .img-placeholder{
+      width:100%;
+      aspect-ratio:16/9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      color:var(--text-muted);
+      font-size:11px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .proj-card{display:block;text-decoration:none;background:var(--card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;color:inherit;}
+    .proj-body{padding:20px 22px 22px;}
+    .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;}
+    .proj-tag{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);}
+    .proj-title{font-family:var(--font-display);font-size:21px;margin-bottom:6px;color:var(--text-primary);line-height:1.2;}
+    .proj-desc{font-size:12px;color:var(--text-secondary);line-height:1.65;margin-bottom:14px;}
+    .proj-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+
+    /* ── INDUSTRY ── */
+    .industry-wrap{background:var(--card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;margin-top:36px;}
+    .industry-inner{display:grid;grid-template-columns:1fr 1fr;}
+    .ind-left{padding:36px;border-right:1px solid var(--border);}
+    .ind-right{padding:36px;}
+    .ind-company{font-family:var(--font-display);font-size:28px;font-weight:300;margin-bottom:4px;}
+    .ind-role{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+    .ind-text{font-size:13px;color:var(--text-secondary);line-height:1.85;}
+    /*
+      Dashboard: 2880×2728 px (~1:1). Shown as 16:9 contained with dark bg.
+    */
+    .img-dashboard-ind{width:100%;aspect-ratio:16/9;object-fit:contain;background:#0e0e0c;border:1px solid var(--border-light);border-radius:3px;margin-top:20px;display:block;padding:10px;}
+    .ind-gap{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);padding:20px 22px;}
+    .ind-gap-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+    .ind-gap-text{font-size:13px;color:var(--text-secondary);line-height:1.82;}
+
+    /* ── PEDAGOGY ── */
+    .ped-frame{background:var(--card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;margin-top:32px;}
+    .ped-header{padding:18px 28px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-secondary);}
+    .ped-header strong{color:var(--accent);font-weight:500;}
+    .ped-phases{display:grid;grid-template-columns:repeat(5,1fr);}
+    .ped-phase{padding:18px 16px;border-right:1px solid var(--border);}
+    .ped-phase:last-child{border-right:none;}
+    .ped-n{font-family:var(--font-display);font-size:26px;font-weight:300;color:var(--accent);margin-bottom:5px;}
+    .ped-name{font-size:11px;font-weight:600;color:var(--text-primary);margin-bottom:4px;}
+    .ped-desc{font-size:11px;color:var(--text-secondary);line-height:1.6;}
+
+    /* ── STUDENT OUTCOMES ── */
+
+    /* Handloom — compact, clickable */
+    .outcome-link{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;transition:border-color .2s;cursor:pointer;margin-top:36px;}
+    .outcome-link:hover{border-color:rgba(196,151,90,.3);}
+    .outcome-link:hover .see-link-bar{opacity:1;}
+
+    /*
+      Handloom photo layout — 3 images in a row:
+      1. Handloom Wiever Ergonomic Study.png: 578×368 px → landscape ~16:10
+         Shown at 2/3 width, 16:10 aspect ratio.
+      2+3. Screenshot 2026-04-22 231338.png + (1).png: both 194×210 px → ~1:1 portrait
+         Shown at 1/3 width (half each in stacked column), square aspect ratio.
+    */
+    .handloom-photos{display:grid;grid-template-columns:2fr 1fr;gap:2px;}
+    .img-handloom-main{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:center;display:block;background:var(--bg);}
+    .handloom-col{display:grid;grid-template-rows:1fr 1fr;gap:2px;}
+    .img-weaver{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center;display:block;background:var(--bg);}
+
+    .outcome-body{padding:22px 28px;}
+    .oc-domain{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .oc-title{font-family:var(--font-display);font-size:24px;font-weight:300;margin-bottom:10px;line-height:1.2;}
+
+    /* Compact 3-col info */
+    .oc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:0;}
+    .oc-col{padding-right:18px;border-right:1px solid var(--border);}
+    .oc-col:nth-child(2){padding:0 18px;}
+    .oc-col:last-child{border-right:none;padding-left:18px;padding-right:0;}
+    .oc-col-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .oc-col p{font-size:12px;color:var(--text-secondary);line-height:1.65;}
+
+    .see-link-bar{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.45;transition:opacity .2s;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;border-top:1px solid var(--border);}
+
+    /* Duo cards (WFH + Bus Stop) side by side */
+    .dual-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;}
+    .duo-card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--border-light);overflow:hidden;transition:border-color .2s;cursor:pointer;border-radius:0;}
+    .duo-card:hover{border-color:rgba(196,151,90,.3);}
+    .duo-card:hover .see-link-bar{opacity:1;}
+    /*
+      Physio + Bus Stop images: MISSING from zip.
+      Placeholder shown — add image files and swap src.
+      Recommended: 16:9 landscape, any field/clinic/bus stop photo.
+      Suggested filenames: physio-wfh.jpg, bus-stand.jpg
+    */
+    .duo-body{padding:22px 22px 0;}
+    .duo-domain{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .duo-title{font-family:var(--font-display);font-size:20px;font-weight:300;margin-bottom:10px;line-height:1.25;}
+    .duo-block{margin-bottom:10px;}
+    .duo-block-label{font-size:9px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+    .duo-block p{font-size:12px;color:var(--text-secondary);line-height:1.68;}
+
+    /* My Role common */
+    .my-role-box{background:var(--surface);border:1px solid var(--border-light);border-top:none;padding:22px 28px;}
+    .my-role-title{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+    .my-role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 36px;}
+    .my-role-item{font-size:12px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;line-height:1.6;}
+    .my-role-item::before{content:'—';color:var(--text-muted);flex-shrink:0;}
+
+    /* ── RESEARCH ── */
+    .research-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:36px;}
+    .research-card{background:var(--card);border:1px solid var(--border-light);border-radius:4px;padding:24px;}
+    .res-num{font-family:var(--font-display);font-size:16px;color:var(--accent);margin-bottom:12px;}
+    .res-title{font-family:var(--font-display);font-size:19px;margin-bottom:10px;}
+    .res-list{list-style:none;}
+    .res-list li{font-size:12px;color:var(--text-secondary);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.58;}
+    .res-list li:last-child{border-bottom:none;}
+    .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:12px;}
+    .cert-item{font-size:11px;color:var(--text-secondary);padding:5px 9px;background:var(--bg);border:1px solid var(--border);border-radius:2px;line-height:1.4;}
+
+    /* ── CLOSING ── */
+    #closing{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:88px 52px;}
+    .close-line{font-family:var(--font-display);font-size:clamp(20px,2.8vw,36px);font-weight:300;color:var(--text-secondary);max-width:640px;margin:0 auto 36px;line-height:1.5;}
+
+    /* ── FOOTER ── */
+    footer{padding:22px 52px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-name{font-family:var(--font-display);font-size:15px;color:var(--text-secondary);}
+    .footer-note{font-size:11px;color:var(--text-muted);letter-spacing:.04em;}
+
+    /* ── FADE ── */
+    .fade{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+    .fade.d1{transition-delay:.1s;}.fade.d2{transition-delay:.2s;}
+    .fade.visible{opacity:1;transform:none;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:920px){
+      nav{padding:0 20px;}.nav-links{gap:16px;}
+      .nav-links a{font-size:10px;letter-spacing:.08em;}
+      section{padding:64px 20px;}.full-bleed .inner{padding:64px 20px;}
+      #hero,.creds-grid,.industry-inner,.dual-outcomes{grid-template-columns:1fr;gap:20px;}
+      .ind-left{border-right:none;border-bottom:1px solid var(--border);}
+      .comp-grid,.research-grid{grid-template-columns:1fr;}
+      .case-gallery{grid-template-columns:repeat(2,1fr);}
+      .case-body,.case-header,.oc-grid{grid-template-columns:1fr;}
+      .case-col,.oc-col{border-right:none;border-bottom:1px solid var(--border);padding:0 0 12px;margin-bottom:10px;}
+      .case-col:last-child,.oc-col:last-child{border-bottom:none;margin-bottom:0;}
+      .case-col:nth-child(2),.oc-col:nth-child(2),.case-col:last-child,.oc-col:last-child{padding-left:0;padding-right:0;}
+      .ped-phases{grid-template-columns:1fr 1fr;}
+      .projects-grid{grid-template-columns:1fr;}
+      .handloom-photos{grid-template-columns:1fr;}
+      .my-role-grid{grid-template-columns:1fr;}
+      footer{flex-direction:column;gap:8px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-logo">Aniket <span>Supe</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#industry">Industry</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="https://drive.google.com/file/d/16uOwHYivfqMsrap0k2Wm84dAC8JyGXbI/view?usp=sharing" target="_blank" class="resume-link">Resume ↗</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-left fade">
+    <div class="hero-intro">Assistant Professor · UI/UX &amp; Interaction Design</div>
+    <h1 class="hero-title">Designing<br><em>by Inquiry.</em><br>Teaching<br>by Process.</h1>
+    <p class="hero-sub">I build design thinkers — students who observe carefully, frame problems honestly, and design with intent. My teaching draws equally from academic rigour and the realities of product work.</p>
+    <div class="hero-stats">
+      <div><div class="stat-v">8+</div><div class="stat-l">Years Teaching</div></div>
+      <div><div class="stat-v">3</div><div class="stat-l">Institutions</div></div>
+      <div><div class="stat-v">PhD</div><div class="stat-l">Design — Pursuing</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right fade d2">
+    <!--
+      IMAGE: Aniket.png — 590×788 px
+      Display ratio: 3:4 portrait (590:788 ≈ 3:4). No resize needed.
+    -->
+    <div class="profile-wrap">
+      <img src="Aniket.png" alt="Aniket Supe" class="profile-img">
+    </div>
+    <div class="hero-quote">
+      <p>"Good design starts before the screen — with observation, honest framing, and the willingness to sit with a problem until it becomes clear."</p>
+    </div>
+    <!-- All tags uniform style -->
+    <div class="row">
+      <span class="tag">UI/UX Design</span>
+      <span class="tag">Interaction Design</span>
+      <span class="tag">Design Research</span>
+      <span class="tag">Information Architecture</span>
+      <span class="tag">Studio Pedagogy</span>
+      <span class="tag">UGC-NET</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 01 — BACKGROUND ══════════ -->
+<section id="credentials">
+  <div class="eyebrow fade"><span>01</span><span class="eyebrow-line"></span><span>Background</span></div>
+  <h2 class="sec-title fade d1">Academic &amp; <em>Professional</em> Journey</h2>
+  <div class="creds-grid">
+    <div class="fade d1">
+      <p class="tl-col-label">Education</p>
+      <ul class="tl">
+        <li><div class="tl-year">2026 — Pursuing</div><div class="tl-title">PhD in Design</div><div class="tl-sub">Symbiosis International University</div><span class="tl-badge">Generative AI &amp; Design Education</span></li>
+        <li><div class="tl-year">2017</div><div class="tl-title">Senior Fellowship</div><div class="tl-sub">Nanjing University of Arts, China</div><span class="tl-badge">Jiangsu Jasmine Scholarship</span></li>
+        <li><div class="tl-year">2016</div><div class="tl-title">Master of Fine Arts (MFA)</div><div class="tl-sub">Visva-Bharati University, Santiniketan</div></li>
+        <li><div class="tl-year">2014</div><div class="tl-title">Bachelor of Fine Arts (BFA)</div><div class="tl-sub">Sir J. J. School of Art, Mumbai</div></li>
+        <li><div class="tl-year">2019</div><div class="tl-title">UGC-NET Qualified</div><div class="tl-sub">Design</div></li>
+      </ul>
+    </div>
+    <div class="fade d2">
+      <p class="tl-col-label">Career</p>
+      <ul class="tl">
+        <li><div class="tl-year">2024 – Present</div><div class="tl-title">Assistant Professor</div><div class="tl-sub">MIT Vishwaprayag University, Solapur</div><span class="tl-badge">UI/UX · Interaction Design · Research Methods</span></li>
+        <li><div class="tl-year">2024 — 4 Months</div><div class="tl-title">Sr. UI/UX Designer</div><div class="tl-sub">Calfus Technologies, Pune</div><span class="tl-badge">Industry</span></li>
+        <li><div class="tl-year">2021 – 2024</div><div class="tl-title">Assistant Professor</div><div class="tl-sub">Symbiosis Institute of Design, Pune</div></li>
+        <li><div class="tl-year">2018 – 2021</div><div class="tl-title">Assistant Professor</div><div class="tl-sub">MIT-WPU, Pune</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 02 — COMPETENCY (3 cards, same colour, hover) ══════════ -->
+<section id="competencies" class="full-bleed">
+  <div class="inner">
+    <div class="eyebrow fade"><span>02</span><span class="eyebrow-line"></span><span>Expertise</span></div>
+    <h2 class="sec-title fade d1">What I <em>Teach &amp; Know</em></h2>
+    <div class="comp-grid">
+      <div class="comp-cell fade">
+        <div class="comp-title">UI/UX &amp; Interaction Design</div>
+        <div class="comp-sub">User research, information architecture, wireframing, prototyping, usability principles, interaction mapping, and affordance design — across digital interfaces and physical interaction systems.</div>
+        <div class="comp-tags"><span class="pill">UI/UX</span><span class="pill">Interaction Design</span><span class="pill">IA</span><span class="pill">Prototyping</span></div>
+      </div>
+      <div class="comp-cell fade d1">
+        <div class="comp-title">Design Research &amp; HCD</div>
+        <div class="comp-sub">Contextual inquiry, ethnographic observation, journey mapping, and research synthesis — grounded in human-centred frameworks that connect field observation to meaningful design decisions.</div>
+        <div class="comp-tags"><span class="pill">Contextual Inquiry</span><span class="pill">Journey Mapping</span><span class="pill">HCD</span><span class="pill">Synthesis</span></div>
+      </div>
+      <div class="comp-cell fade d2">
+        <div class="comp-title">Studio Pedagogy &amp; Curriculum</div>
+        <div class="comp-sub">Project-based learning, rubric-driven assessment, OBE alignment, BoS contribution, and curriculum design — building critical design thinking from foundation to advanced studio levels.</div>
+        <div class="comp-tags"><span class="pill">Project-Based Learning</span><span class="pill">OBE</span><span class="pill">Curriculum</span><span class="pill">BoS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 03 — OWN UX PROJECTS ══════════ -->
+<section id="work">
+  <div class="eyebrow fade"><span>03</span><span class="eyebrow-line"></span><span>Selected Work</span></div>
+  <h2 class="sec-title fade d1">Own <em>UX Projects</em></h2>
+
+  <!-- ── EMPATHETIC PLATFORM (hero, stays full-width) ── -->
+  <div class="case-hero fade">
+    <div class="case-header">
+      <div>
+        <div class="case-tag">Hero Case Study · Mobile UX</div>
+        <h3 class="case-title">Empathetic Social Media Platform</h3>
+        <p class="case-desc">An end-to-end UX project exploring how a social platform can be designed around user wellbeing rather than engagement loops — built from primary research and user interviews.</p>
+        <div class="row" style="margin-top:12px;">
+          <a href="https://www.behance.net/gallery/177533173/UIUX-Case-Study-Empathetic-Social-Media-Platform" target="_blank" class="btn">View Case Study ↗</a>
+          <a href="https://www.figma.com/proto/YY1i2Zsq1k0K7z33fXfWb0/Portfolio?node-id=9-750&t=5ZZIjJquw2QJgZCN-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=9%3A1298" target="_blank" class="btn">Figma Prototype ↗</a>
+        </div>
+      </div>
+      <div class="case-num">01</div>
+    </div>
+    <div class="case-body">
+      <div class="case-col"><div class="case-col-label">Problem</div><ul><li>Platforms designed for engagement, not wellbeing</li><li>Emotional fatigue and passive scrolling</li><li>Need for intentional, user-controlled interaction</li></ul></div>
+      <div class="case-col"><div class="case-col-label">Process</div><ul><li>User interviews + secondary research</li><li>Persona &amp; user journey mapping</li><li>Information architecture + feature structuring</li><li>Wireframes → design system → mobile UI</li></ul></div>
+      <div class="case-col"><div class="case-col-label">Deliverables</div><ul><li>Personas &amp; journey maps</li><li>IA diagram</li><li>Hi-fi mobile screens</li><li>Interactive prototype</li></ul></div>
+    </div>
+    <div class="proc-bar">
+      <div class="proc-node"><div class="proc-n">01</div><div class="proc-l">Research</div></div><span class="proc-arr">→</span>
+      <div class="proc-node"><div class="proc-n">02</div><div class="proc-l">Synthesis</div></div><span class="proc-arr">→</span>
+      <div class="proc-node"><div class="proc-n">03</div><div class="proc-l">IA</div></div><span class="proc-arr">→</span>
+      <div class="proc-node"><div class="proc-n">04</div><div class="proc-l">Wireframes</div></div><span class="proc-arr">→</span>
+      <div class="proc-node"><div class="proc-n">05</div><div class="proc-l">UI System</div></div><span class="proc-arr">→</span>
+      <div class="proc-node"><div class="proc-n">06</div><div class="proc-l">Prototype</div></div>
+    </div>
+    <!--
+      IMAGES: Empathetic Social Media UI Screens1–3.png — all 786×1704 px
+      Display ratio: 786/1704 (~9:19.4 portrait phone screens). No resize needed.
+    -->
+    <div class="case-gallery">
+      <img src="Empathetic Social Media UI Screens1.png" alt="Social media UI — screen 1" class="phone-screen">
+      <img src="Empathetic Social Media UI Screens2.png" alt="Social media UI — screen 2" class="phone-screen">
+      <img src="Empathetic Social Media UI Screens3.png" alt="Social media UI — screen 3" class="phone-screen">
+    </div>
+  </div>
+
+  <!-- ── SUPPORTING WEB PROJECTS (2-col grid) ── -->
+  <!-- All web project images: 16:9 landscape — consistent orientation -->
+  <div class="projects-grid">
+
+    <!--
+      UI INTERFACE DESIGN PROJECT (Calfus — dress customisation)
+      IMAGE NEEDED: Add an image file named "calfus-ui-design.jpg" (or .png)
+      Recommended size: 1280×720 px (16:9) — screenshot of the Figma prototype screens
+      Until added, placeholder is shown.
+    -->
+    <div class="proj-card fade">
+      <div class="img-placeholder">Add image: calfus-ui-design.jpg (1280×720 px)</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <span class="proj-tag">UI Interface Design</span>
+        </div>
+        <h3 class="proj-title">User Interface Design Project</h3>
+        <p class="proj-desc">Designed to enhance the online shopping experience — customers can upload their own photo to virtually try on outfits, and choose from a full customisable colour palette to make every dress uniquely theirs.</p>
+        <div class="proj-footer">
+          <div class="row"><span class="pill">UI Design</span><span class="pill">User Experience</span><span class="pill">Customisation</span></div>
+          <a href="https://www.figma.com/proto/hThtxNiFN1qniLz2KfpCQK/Assignment-Calfus?node-id=2-851&p=f&t=jDLMpyHGP0aPCbFo-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" class="btn">View Project ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      KIRANA STORE — one image
+      IMAGE: Screenshot 2026-04-22 231347.png — 250×192 px
+      ⚠ RESIZE NEEDED: Current size is 250×192. Upscale to at least 800×600 (keep 4:3 ratio)
+        for acceptable quality. Displayed as 16:9 crop — some vertical cropping will occur.
+        Better: use a wider field photo if available.
+    -->
+    <a class="proj-card fade d1" href="https://www.behance.net/gallery/171687605/Case-study-Local-grocery-shopkeepers-in-India" target="_blank">
+      <img src="Screenshot 2026-04-22 231347.png" alt="Kirana store field research" class="img-web-landscape">
+      <div class="proj-body">
+        <div class="proj-top">
+          <span class="proj-tag">Contextual Research · Service Design</span>
+        </div>
+        <h3 class="proj-title">Local Grocery Shopkeepers Study</h3>
+        <p class="proj-desc">A field-based UX research study into the kirana store ecosystem — mapping owner workflows, customer behaviour, and service gaps through direct contextual observation.</p>
+        <div class="proj-footer">
+          <div class="row"><span class="pill">Observation</span><span class="pill">Service Design</span><span class="pill">Systems Thinking</span></div>
+          <span class="btn">View Project ↗</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 04 — INDUSTRY EXPERIENCE ══════════ -->
+<section id="industry" class="full-bleed">
+  <div class="inner">
+    <div class="eyebrow fade"><span>04</span><span class="eyebrow-line"></span><span>Industry</span></div>
+    <h2 class="sec-title fade d1"><em>Industry</em> Experience</h2>
+    <div class="industry-wrap fade">
+      <div class="industry-inner">
+        <div class="ind-left">
+          <div class="ind-company">Calfus Technologies</div>
+          <div class="ind-role">Sr. UI/UX Designer · 2024 · Pune · 4 Months</div>
+          <p class="ind-text">
+            I worked on two products here. The first was an <strong style="color:var(--text-primary);font-weight:500;">e-commerce platform</strong> where I designed the flow for how sellers list their products — making the process feel logical, the information well-organised, and products easy for buyers to find and filter. The second was a <strong style="color:var(--text-primary);font-weight:500;">banking dashboard</strong> that let users view account balances across multiple banks and countries — the focus was on presenting a lot of financial information without overwhelming the user.
+          </p>
+          <!--
+            IMAGE: Productmanagement dashboard (1).png — 2880×2728 px (~1:1)
+            Displayed as 16:9 landscape, object-fit: contain on dark bg. No resize needed.
+            Caption: Customer Management Dashboard
+          -->
+          <img src="Productmanagement dashboard (1).png" alt="Customer Management Dashboard" class="img-dashboard-ind">
+          <p style="font-size:10px;color:var(--text-muted);margin-top:8px;letter-spacing:.04em;">Customer Management Dashboard</p>
+        </div>
+        <div class="ind-right">
+          <div class="ind-gap">
+            <div class="ind-gap-label">Bridging the gap</div>
+            <p class="ind-gap-text">Teaching UX without knowing how a real product team works is like teaching cooking without ever entering a kitchen. This experience showed me how design decisions get made under pressure — sprint timelines, stakeholder feedback, technical constraints, and constant tradeoffs. I now build those realities directly into the briefs I give students. When I ask them to consider feasibility or prioritise features, I am drawing from actual experience, not theory.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 05 — HOW I TEACH ══════════ -->
+<section id="teaching">
+  <div class="eyebrow fade"><span>05</span><span class="eyebrow-line"></span><span>Studio Pedagogy</span></div>
+  <h2 class="sec-title fade d1">How I <em>Teach Design</em></h2>
+  <p class="sec-sub fade d2">Every module follows the same discipline — students go into the field before they open a design tool.</p>
+  <div class="ped-frame fade">
+    <div class="ped-header">Framework: <strong>Brief Design → Field Immersion → Insight Synthesis → Concept &amp; IA → Critique</strong></div>
+    <div class="ped-phases">
+      <div class="ped-phase"><div class="ped-n">01</div><div class="ped-name">Brief Design</div><div class="ped-desc">Real-world contexts, not simulations</div></div>
+      <div class="ped-phase"><div class="ped-n">02</div><div class="ped-name">Field Immersion</div><div class="ped-desc">Observation and interviews first</div></div>
+      <div class="ped-phase"><div class="ped-n">03</div><div class="ped-name">Insight Synthesis</div><div class="ped-desc">Personas, journey maps, opportunity areas</div></div>
+      <div class="ped-phase"><div class="ped-n">04</div><div class="ped-name">Concept &amp; IA</div><div class="ped-desc">Interaction thinking and feasibility</div></div>
+      <div class="ped-phase"><div class="ped-n">05</div><div class="ped-name">Critique</div><div class="ped-desc">Structured review and documented outcomes</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 06 — STUDENT OUTCOMES ══════════ -->
+<section id="outcomes" class="full-bleed">
+  <div class="inner">
+    <div class="eyebrow fade"><span>06</span><span class="eyebrow-line"></span><span>Faculty-Led Studio Outcomes</span></div>
+    <h2 class="sec-title fade d1">Projects I <em>Mentored</em></h2>
+    <p class="sec-sub fade d2">All briefs designed and facilitated by me. The work belongs to my students — I contributed the structure, the questions, and the process.</p>
+
+    <!-- ── HANDLOOM WEAVER STUDY ── -->
+    <!--
+      3 PHOTOS USED:
+      1. Handloom Wiever Ergonomic Study.png — 578×368 px (landscape 16:10)
+         → Left 2/3 of photo row, aspect-ratio 16:10. No resize needed.
+      2. Screenshot 2026-04-22 231338.png — 194×210 px (~1:1 portrait)
+         → Right column top half, square 1:1. No resize needed.
+      3. Screenshot 2026-04-22 231338 (1).png — 194×210 px (~1:1 portrait)
+         → Right column bottom half, square 1:1. No resize needed.
+    -->
+    <a class="outcome-link fade" href="https://drive.google.com/file/d/1umcaHk6xbKIc0c4n1tVZ1GnPjhGcrjM-/view?usp=sharing" target="_blank">
+      <div class="handloom-photos">
+        <img src="Handloom Wiever Ergonomic Study.png" alt="Students with handloom weavers in Solapur" class="img-handloom-main">
+        <div class="handloom-col">
+          <img src="Screenshot 2026-04-22 231338.png" alt="Weaver at work — posture study" class="img-weaver">
+          <img src="Screenshot 2026-04-22 231338 (1).png" alt="Weaving process documentation" class="img-weaver">
+        </div>
+      </div>
+      <div class="outcome-body">
+        <div class="oc-domain">Field Research · Ergonomics · HCD</div>
+        <h3 class="oc-title">Handloom Weaver Study — Solapur</h3>
+        <div class="oc-grid">
+          <div class="oc-col">
+            <div class="oc-col-label">Problem Statement</div>
+            <p>Weavers work in extended floor-level postures for hours with limited back support — leading to chronic physical strain with few affordable solutions.</p>
+          </div>
+          <div class="oc-col">
+            <div class="oc-col-label">What Students Achieved</div>
+            <p>Documented posture patterns and ergonomic pain points through field observation. Developed low-cost design proposals addressing weavers' working conditions.</p>
+          </div>
+          <div class="oc-col">
+            <div class="oc-col-label">What Students Understood</div>
+            <p>Sitting with weavers in the field built genuine empathy — and a sharper sense of what human-centred design actually means when the user's reality is nothing like your own.</p>
+          </div>
+        </div>
+      </div>
+      <div class="see-link-bar"><span>View Full Documentation</span><span>↗</span></div>
+    </a>
+
+    <!-- ── WFH + BUS STOP (side by side) ── -->
+    <div class="dual-outcomes">
+
+      <!--
+        PHYSIOTHERAPY / WFH
+        IMAGE NEEDED: Add file "physio-wfh.jpg" (recommended 1280×720 px, 16:9 landscape)
+        Suggested: photo of a physiotherapy clinic, patient being assessed, or WFH setup.
+        Until added, placeholder shown below.
+      -->
+      <a class="duo-card" href="https://drive.google.com/file/d/1fVAymmGB9ZVVLCycaXtYTTbzup4mmcb-/view?usp=sharing" target="_blank">
+        <div class="img-placeholder">Add image: physio-wfh.jpg (1280×720 px · 16:9)</div>
+        <div class="duo-body">
+          <div class="duo-domain">Design Process Module · Health-Adjacent</div>
+          <h3 class="duo-title">Physiotherapy Clinic &amp; WFH Ergonomics</h3>
+          <div class="duo-block">
+            <div class="duo-block-label">Problem Statement</div>
+            <p>Work-from-home setups rarely account for long-term posture health. Students began at a physiotherapy clinic — interviewing a doctor, observing patients — then traced the problem back to the domestic environment.</p>
+          </div>
+          <div class="duo-block">
+            <div class="duo-block-label">What Students Achieved</div>
+            <p>Built user personas from clinical observations. Proposed affordable ergonomic interventions for WFH contexts, grounded in actual medical insight.</p>
+          </div>
+          <div class="duo-block">
+            <div class="duo-block-label">Awareness Built</div>
+            <p>Students developed sensitivity to invisible suffering — the kind that builds quietly over time — and a responsibility to design solutions that are genuinely accessible.</p>
+          </div>
+        </div>
+        <div class="see-link-bar"><span>View Documentation</span><span>↗</span></div>
+      </a>
+
+      <!--
+        BUS STAND / VENDOR
+        IMAGE NEEDED: Add file "bus-stand.jpg" (recommended 1280×720 px, 16:9 landscape)
+        Suggested: photo of a roadside vendor at a bus stand, street market, or similar public space.
+        Until added, placeholder shown below.
+      -->
+      <a class="duo-card" href="https://drive.google.com/file/d/18L0u3AnwtY5_i_BSDbcBcKxi8PSi1NS/view?usp=sharing" target="_blank">
+        <div class="img-placeholder">Add image: bus-stand.jpg (1280×720 px · 16:9)</div>
+        <div class="duo-body">
+          <div class="duo-domain">Public Space · Systems Thinking</div>
+          <h3 class="duo-title">System of the Indian Bus Stand</h3>
+          <div class="duo-block">
+            <div class="duo-block-label">Problem Statement</div>
+            <p>Roadside vendors operate with no formal infrastructure — managing stock, transactions, and customers while navigating spatial uncertainty every day.</p>
+          </div>
+          <div class="duo-block">
+            <div class="duo-block-label">What Students Achieved</div>
+            <p>Mapped the vendor's world as a system — spatial flow, stakeholder interactions, friction points — and identified practical design opportunities without disrupting existing methods.</p>
+          </div>
+          <div class="duo-block">
+            <div class="duo-block-label">Awareness Built</div>
+            <p>Students began to see complexity, resilience, and dignity in the informal economy. The project shifted their definition of who design is for — and that shift stays with them.</p>
+          </div>
+        </div>
+        <div class="see-link-bar"><span>View Documentation</span><span>↗</span></div>
+      </a>
+
+    </div>
+
+    <!-- ── COMMON MY ROLE ── -->
+    <div class="my-role-box fade">
+      <div class="my-role-title">My Role Across These Projects</div>
+      <div class="my-role-grid">
+        <div class="my-role-item">Designed each studio brief around a real, underserved context</div>
+        <div class="my-role-item">Structured field immersion — observation guides and interview frameworks</div>
+        <div class="my-role-item">Mentored the translation from raw fieldwork to design insight</div>
+        <div class="my-role-item">Guided problem framing and opportunity identification</div>
+        <div class="my-role-item">Helped students move from documentation to design direction</div>
+        <div class="my-role-item">Conducted studio critique and reviewed concept rationale</div>
+      </div>
+      <p style="font-size:10px;color:var(--text-muted);margin-top:14px;letter-spacing:.03em;">All work by student teams · MIT Vishwaprayag University, Solapur · 2024–25</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════ 07 — RESEARCH & CURRICULUM ══════════ -->
+<section id="research">
+  <div class="eyebrow fade"><span>07</span><span class="eyebrow-line"></span><span>Research &amp; Scholarship</span></div>
+  <h2 class="sec-title fade d1">Academic <em>Contributions</em></h2>
+  <div class="research-grid">
+    <div class="research-card fade">
+      <div class="res-num">01</div>
+      <h3 class="res-title">Research &amp; Publications</h3>
+      <ul class="res-list">
+        <li><strong style="color:var(--text-primary);font-weight:500;">PhD (Design) · Pursuing 2026</strong><br>Generative AI &amp; Design Education — SIU</li>
+        <li><strong style="color:var(--text-primary);font-weight:500;">IPDIMS 2024 — International Conference</strong><br>"Advancing Elderly Care Sustainability: AI &amp; Real-Time Stories"</li>
+        <li><strong style="color:var(--text-primary);font-weight:500;">Design Patent Filed</strong><br>Suppository applicator design for children</li>
+        <li>Illustrations published — "The People Called Kolkata"</li>
+      </ul>
+    </div>
+    <div class="research-card fade d1">
+      <div class="res-num">02</div>
+      <h3 class="res-title">Curriculum Contributions</h3>
+      <ul class="res-list">
+        <li>Designed <em>Design Thinking for Sustainability</em> and <em>AI for All</em></li>
+        <li>Developed UI Design curriculum for MCA students</li>
+        <li>Foundation modules: Elements of Design, Sketching, Art &amp; Culture</li>
+        <li>Contributed to BoS processes and program outcome frameworks</li>
+        <li>Activity-based rubric-driven assessment design</li>
+      </ul>
+    </div>
+    <div class="research-card fade d2">
+      <div class="res-num">03</div>
+      <h3 class="res-title">Certifications</h3>
+      <div class="cert-grid">
+        <div class="cert-item">Google UX Design Professional</div>
+        <div class="cert-item">Advanced UI/UX — IIT Guwahati</div>
+        <div class="cert-item">IUCEE Educator Cert. 2025</div>
+        <div class="cert-item">HCI Foundations — IDF</div>
+        <div class="cert-item">AI for Designers — IDF</div>
+        <div class="cert-item">Mobile UX Strategy — IDF</div>
+        <div class="cert-item">Design for 21C — Don Norman</div>
+        <div class="cert-item">Perception &amp; Memory in HCI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CLOSING ══════════ -->
+<section id="closing">
+  <p class="close-line fade">Design education, at its best, does not teach students what to make — it teaches them how to see. That is what I am here to do.</p>
+  <!--
+    REPLACE the href below with your actual LinkedIn profile URL.
+    Example: href="https://www.linkedin.com/in/aniketsupe"
+  -->
+  <a href="https://www.linkedin.com/in/aniketsupe" target="_blank" class="btn filled fade d1">Connect with Me</a>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-name">Aniket Supe</div>
+  <div class="footer-note">Assistant Professor · UI/UX &amp; Interaction Design · 2025</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.07, rootMargin: '0px 0px -28px 0px' }
+  );
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
